@@ -1,8 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './TransactionsStyles.css'
+import { api } from '../../lib/axios'
+import TableRow from '../TableRow/TableRow';
+interface Transaction {
+    id: number;
+    title: string;
+    paymentMethod: string;
+    category: string;
+    amount: string;
+}
 
-export const Transaction = () => {
-    const [transaction, setTransaction] = useState()
+const Transaction = () => {
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+    useEffect(() => {
+        const fetchTransactions = async () => {
+            try {
+                const response = await api.get('/transactions');
+                console.log('Dados da API:', response.data.transactions); // Verifique o formato da resposta aqui
+                setTransactions(response.data.transactions);
+            } catch (error) {
+                console.error('Erro ao buscar as transações:', error);
+            }
+        };
+
+        fetchTransactions();
+    }, []);
+
 
 
     return (
@@ -19,30 +43,17 @@ export const Transaction = () => {
                             <th className="dark-header-cell"></th>
                         </tr>
                     </thead>
-                    <tbody className="dark-table-body">
-                        <tr className="dark-table-row">
-                            <td className="dark-table-cell">1</td>
-                            <td className="dark-table-cell dark-highlight">Apple MacBook Pro 17"</td>
-                            <td className="dark-table-cell dark-highlight">Dinheiro</td>
-                            <td className="dark-table-cell dark-highlight">Despesa</td>
-                            <td className="dark-table-cell dark-amount-negative">R$ 2.999</td>
-                            <td className="dark-table-cell dark-actions">
-                                <button className="action-btn edit">Editar</button>
-                                <button className="action-btn delete">Excluir</button>
-                            </td>
-                        </tr>
-                        <tr className="dark-table-row">
-                            <td className="dark-table-cell">2</td>
-                            <td className="dark-table-cell dark-highlight">Pagamento Salário</td>
-                            <td className="dark-table-cell dark-highlight">Salário</td>
-                            <td className="dark-table-cell dark-highlight">Déposito Bancário</td>
-                            <td className="dark-table-cell dark-amount-positive">R$ 10.000</td>
-                            <td className="dark-table-cell dark-actions">
-                                <button className="action-btn edit">Editar</button>
-                                <button className="action-btn delete">Excluir</button>
-                            </td>
-                        </tr>
-                    </tbody>
+                        {transactions.map((transaction) => (
+                            <TableRow 
+                                key={transaction.id}
+                                id={transaction.id}
+                                title={transaction.title}
+                                paymentMethod={transaction.paymentMethod}
+                                category={transaction.category}
+                                amount={transaction.amount}
+                            />
+                        ))}
+
                 </table>
             </div>
         </div>
