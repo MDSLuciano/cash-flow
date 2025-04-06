@@ -1,5 +1,6 @@
 import './App.css'
-import Transaction from './components/Transactions/Transactions'
+import AddTransaction from './components/AddTransaction/AddTransaction'
+import Transaction from './pages/Transactions/Transactions'
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <h1>CashFlow+</h1>
       <p>Seu gerenciador de finanças pessoal.</p>
+      <AddTransaction />
       <Transaction />
     </>
   )
