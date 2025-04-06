@@ -34,7 +34,6 @@ const Modal = ({isOpen, onClose, onSaveTransaction}:ModalProps) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSaveTransaction(formData); // Passa os dados para salvar a transação.
-        onClose(); // Fecha o modal
     }
 
     if(!isOpen) return null

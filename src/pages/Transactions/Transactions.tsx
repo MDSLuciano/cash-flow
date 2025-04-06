@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './TransactionsStyles.css';
 import { api } from '../../lib/axios';
 import TableRow from '../../components/TableRow/TableRow';
+import { useTransactions } from '../../contexts/TransactionContext';
 
 interface Transaction {
     id: number;
@@ -12,26 +13,17 @@ interface Transaction {
 }
 
 const Transaction = () => {
-    const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-    const refreshData = async () => {
-        try {
-            const response = await api.get('/transactions'); // Refaça a chamada para obter os dados atualizados
-            setTransactions(response.data.transactions); // Atualize o estado
-        } catch (error) {
-            console.error('Erro ao atualizar os dados:', error);
-        }
-    };
+    const { transactions, refreshTransactions} = useTransactions();
 
     useEffect(() => {
-        refreshData() 
+        refreshTransactions()
     }, []);
     
     const handleDelete = async (id: number) => {
         try {
             await api.delete(`/${id}`); // Faça o DELETE na API
             console.log(`Transação ${id} removida com sucesso.`);
-            await refreshData(); // Atualize os dados da tabela
+            await refreshTransactions(); // Atualize os dados da tabela
         } catch (error) {
             console.error(`Erro ao excluir a transação ${id}:`, error);
         }
