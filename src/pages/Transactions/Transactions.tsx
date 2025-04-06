@@ -1,33 +1,43 @@
-import { useEffect, useState } from 'react'
-import './TransactionsStyles.css'
-import { api } from '../../lib/axios'
-import TableRow from '../TableRow/TableRow';
+import { useEffect, useState } from 'react';
+import './TransactionsStyles.css';
+import { api } from '../../lib/axios';
+import TableRow from '../../components/TableRow/TableRow';
+
 interface Transaction {
     id: number;
     title: string;
     paymentMethod: string;
     category: string;
-    amount: string;
+    amount: number;
 }
 
 const Transaction = () => {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
 
+    const refreshData = async () => {
+        try {
+            const response = await api.get('/transactions'); // Refaça a chamada para obter os dados atualizados
+            setTransactions(response.data.transactions); // Atualize o estado
+        } catch (error) {
+            console.error('Erro ao atualizar os dados:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchTransactions = async () => {
-            try {
-                const response = await api.get('/transactions');
-                console.log('Dados da API:', response.data.transactions); // Verifique o formato da resposta aqui
-                setTransactions(response.data.transactions);
-            } catch (error) {
-                console.error('Erro ao buscar as transações:', error);
-            }
-        };
-
-        fetchTransactions();
+        refreshData() 
     }, []);
+    
+    const handleDelete = async (id: number) => {
+        try {
+            await api.delete(`/${id}`); // Faça o DELETE na API
+            console.log(`Transação ${id} removida com sucesso.`);
+            await refreshData(); // Atualize os dados da tabela
+        } catch (error) {
+            console.error(`Erro ao excluir a transação ${id}:`, error);
+        }
+    };
 
-
+    
 
     return (
         <div className="table-container">
@@ -51,6 +61,7 @@ const Transaction = () => {
                                 paymentMethod={transaction.paymentMethod}
                                 category={transaction.category}
                                 amount={transaction.amount}
+                                onDelete={() => handleDelete(transaction.id)}
                             />
                         ))}
 

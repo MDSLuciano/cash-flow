@@ -1,17 +1,4 @@
 /* Estilos da tabela (modo escuro) */
-.dark-table {
-  width: 100%;
-  text-align: left;
-  color: #9ca3af;
-  border-collapse: collapse;
-}
-
-.dark-table-header {
-  background-color: #374151;
-  color: #9ca3af;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-}
 
 .dark-header-cell {
   padding: 0.75rem 1.5rem;
