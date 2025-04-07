@@ -30,7 +30,7 @@ const AddTransaction = () => {
     return (
         <div>
             <button className='button-add' onClick={openModal}>Adicionar Transação</button>
-            <Modal isOpen={isModalOpen} onClose={closeModal} onSaveTransaction={saveTransaction} />
+            <Modal isOpen={isModalOpen} onClose={closeModal} onSaveTransaction={saveTransaction} isEdit={false} />
         </div>
     );
 }

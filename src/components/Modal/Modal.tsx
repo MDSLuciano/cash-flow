@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TRANSACTION_CATEGORIES, TRANSACTION_PAYMENT_METHODS, TRANSACTION_TYPES } from '../../constant/transaction';
 import './ModalStyles.css';
 
@@ -6,9 +6,12 @@ interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSaveTransaction: (transactionData: TransactionData) => void;
+    isEdit: boolean; // Indica se o modal está em modo de edição.
+    initialData?: TransactionData; // Dados iniciais da transação para edição.
 }
 
 interface TransactionData {
+    id: number
     title: string;
     amount: number;
     type: string;
@@ -16,14 +19,22 @@ interface TransactionData {
     paymentMethod: string;
 }
 
-const Modal = ({isOpen, onClose, onSaveTransaction}:ModalProps) => {
+const Modal = ({isOpen, onClose, onSaveTransaction, isEdit, initialData}:ModalProps) => {
     const [formData, setFormData] = useState<TransactionData>({
+        id: 0,
         title: '',
         amount: 0,
         type: 'debit',
         category: 'OTHER',
         paymentMethod: 'CASH',
     })
+
+    // Carrega os dados iniciais ao abrir o modal em modo de edição.
+    useEffect(() => {
+        if (isEdit && initialData) {
+            setFormData(initialData);
+        }
+    }, [isEdit, initialData]);
     
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -42,7 +53,7 @@ const Modal = ({isOpen, onClose, onSaveTransaction}:ModalProps) => {
         <div className='modal-overlay'>
             <div className="modal">
                 <button className='modal-close' onClick={onClose}>&times;</button>
-                <h1 className='modal-title'>Adicionar Transação</h1>
+                <h1 className='modal-title'>{isEdit ? 'Editar Transação' :'Adicionar Transação'}</h1>
                 <form className='modal-form' onSubmit={handleSubmit}>
                     <div className='form-group'>
                         <label htmlFor='title'>Título:</label>
@@ -119,7 +130,7 @@ const Modal = ({isOpen, onClose, onSaveTransaction}:ModalProps) => {
                                 Cancelar
                             </button>
                             <button type='submit' className='button-save'>
-                                Adicionar
+                                {isEdit ? 'Salvar Alterações' : 'Adicionar'}
                             </button>
                         </div>
 

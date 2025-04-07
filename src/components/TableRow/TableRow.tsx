@@ -10,9 +10,11 @@ interface TableRowProps {
     category: string;
     amount: number;
     onDelete: () => void;
+    onEdit: (updatedTransaction: any) => void;
 }
 
-const TableRow = ({ id, index, title, type, paymentMethod, category, amount, onDelete }: TableRowProps) => {
+const TableRow = ({ id, index, title, type, paymentMethod, category, amount, onDelete, onEdit }: TableRowProps) => {
+    
     const formatCurrency = (value: string | number): string => {
         const numericValue = typeof value === 'string' ? parseFloat(value) : value;
         return new Intl.NumberFormat('pt-BR', {
@@ -20,8 +22,13 @@ const TableRow = ({ id, index, title, type, paymentMethod, category, amount, onD
             currency: 'BRL',
         }).format(numericValue);
     };
+
+    const handleEditClick = () => {
+        onEdit({ id, title, type, paymentMethod, category, amount })
+    }
     
     return (
+        <>
         <tbody className="dark-table-body">
                 <tr className="dark-table-row" key={id}>
                     <td className="dark-table-cell">{++index}</td>
@@ -31,11 +38,12 @@ const TableRow = ({ id, index, title, type, paymentMethod, category, amount, onD
                 <td className={`dark-table-cell dark-amount ${type === 'debit' ? 'dark-amount-negative' : 'dark-amount-positive'}`}>
                     {formatCurrency(amount)}</td>
                     <td className="dark-table-cell dark-actions">
-                        <button className="action-btn edit">Editar</button>
+                        <button className="action-btn edit" onClick={handleEditClick}>Editar</button>
                         <button className="action-btn delete" onClick={onDelete}>Excluir</button>
                     </td>
                 </tr>
         </tbody>
+    </>
     );
 }
 
