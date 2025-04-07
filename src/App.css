@@ -4,3 +4,18 @@
   padding: 2rem;
   text-align: center;
 }
+
+.header-title {
+  font-size: 5rem; /* Texto grande */
+  font-weight: bold;
+  text-align: center; /* Centraliza o texto */
+  color: #ffffff; /* Branco */
+}
+
+/* Descrição abaixo do cabeçalho */
+.description {
+  font-size: 2rem;
+  text-align: center;
+  color: #e2e8f0; /* Cinza claro */
+  margin-top: 8px; /* Espaçamento superior */
+}

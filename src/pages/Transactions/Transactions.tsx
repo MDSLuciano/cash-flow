@@ -7,13 +7,15 @@ import { useTransactions } from '../../contexts/TransactionContext';
 interface Transaction {
     id: number;
     title: string;
+    type: string;
     paymentMethod: string;
     category: string;
     amount: number;
 }
 
 const Transaction = () => {
-    const { transactions, refreshTransactions} = useTransactions();
+    const { transactions, refreshTransactions, refreshSummary} = useTransactions();
+
 
     useEffect(() => {
         refreshTransactions()
@@ -23,7 +25,8 @@ const Transaction = () => {
         try {
             await api.delete(`/${id}`); // Faça o DELETE na API
             console.log(`Transação ${id} removida com sucesso.`);
-            await refreshTransactions(); // Atualize os dados da tabela
+            refreshTransactions(); // Atualize os dados da tabela
+            refreshSummary(); // Atualiza os dados do sumário
         } catch (error) {
             console.error(`Erro ao excluir a transação ${id}:`, error);
         }
@@ -45,11 +48,13 @@ const Transaction = () => {
                             <th className="dark-header-cell"></th>
                         </tr>
                     </thead>
-                        {transactions.map((transaction) => (
-                            <TableRow 
+                        {transactions.map((transaction, index) => (
+                            <TableRow
+                                index={index} 
                                 key={transaction.id}
                                 id={transaction.id}
                                 title={transaction.title}
+                                type={transaction.type}
                                 paymentMethod={transaction.paymentMethod}
                                 category={transaction.category}
                                 amount={transaction.amount}

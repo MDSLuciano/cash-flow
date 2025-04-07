@@ -3,14 +3,16 @@ import './TableRow.css'
 
 interface TableRowProps {
     id: number;
+    index: number;
     title: string;
+    type: string;
     paymentMethod: string;
     category: string;
     amount: number;
     onDelete: () => void;
 }
 
-const TableRow = ({ id, title, paymentMethod, category, amount, onDelete }: TableRowProps) => {
+const TableRow = ({ id, index, title, type, paymentMethod, category, amount, onDelete }: TableRowProps) => {
     const formatCurrency = (value: string | number): string => {
         const numericValue = typeof value === 'string' ? parseFloat(value) : value;
         return new Intl.NumberFormat('pt-BR', {
@@ -22,11 +24,12 @@ const TableRow = ({ id, title, paymentMethod, category, amount, onDelete }: Tabl
     return (
         <tbody className="dark-table-body">
                 <tr className="dark-table-row" key={id}>
-                    <td className="dark-table-cell">{id}</td>
+                    <td className="dark-table-cell">{++index}</td>
                     <td className="dark-table-cell dark-highlight">{title}</td>
                     <td className="dark-table-cell dark-highlight">{TRANSACTION_PAYMENT_METHOD_LABELS[paymentMethod]}</td>
                     <td className="dark-table-cell dark-highlight">{TRANSACTION_CATEGORIES_LABELS[category]}</td>
-                    <td className="dark-table-cell dark-amount">{formatCurrency(amount)}</td>
+                <td className={`dark-table-cell dark-amount ${type === 'debit' ? 'dark-amount-negative' : 'dark-amount-positive'}`}>
+                    {formatCurrency(amount)}</td>
                     <td className="dark-table-cell dark-actions">
                         <button className="action-btn edit">Editar</button>
                         <button className="action-btn delete" onClick={onDelete}>Excluir</button>

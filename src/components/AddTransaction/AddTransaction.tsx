@@ -14,7 +14,7 @@ interface TransactionData {
 
 const AddTransaction = () => {
     const [isModalOpen, setModalOpen] = useState(false);
-    const { refreshTransactions } = useTransactions()
+    const { refreshTransactions, refreshSummary } = useTransactions()
 
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
@@ -24,6 +24,7 @@ const AddTransaction = () => {
         await api.post('/', transactionData)
         console.log(transactionData);
         refreshTransactions()
+        refreshSummary()
         closeModal();
     }
     return (
