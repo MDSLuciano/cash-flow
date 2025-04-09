@@ -16,90 +16,102 @@
 
 /* Estilos da tabela (modo escuro) */
 .dark-table {
-  width: 100%;
-  text-align: left;
-  color: #9ca3af;
-  border-collapse: collapse;
+  width: 100%; /* Ocupa todo o espaço disponível */
+  text-align: left; /* Alinha à esquerda */
+  color: #9ca3af; /* Cor das fontes */
+  border-collapse: collapse; /* Remove espaçamentos entre bordas */
+  table-layout: auto; /* Define layout padrão para colunas */
 }
 
+/* Cabeçalho da tabela */
 .dark-table-header {
-  background-color: #374151;
-  color: #9ca3af;
-  text-transform: uppercase;
-  font-size: 0.75rem;
+  background-color: #374151; /* Cor de fundo do cabeçalho */
+  color: #9ca3af; /* Cor do texto */
+  text-transform: uppercase; /* Maiúsculas */
+  font-size: 0.75rem; /* Tamanho do texto menor */
 }
 
+/* Células do cabeçalho */
 .dark-header-cell {
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1.5rem; /* Espaçamento interno */
 }
 
+/* Linhas da tabela */
 .dark-table-row {
-  background-color: #1f2937;
-  border-bottom: 1px solid #374151;
+  background-color: #1f2937; /* Cor de fundo das linhas */
+  border-bottom: 1px solid #374151; /* Borda inferior */
 }
 
+/* Células da tabela */
 .dark-table-cell {
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem; /* Espaçamento interno */
   white-space: nowrap; /* Evita quebra de linha */
 }
 
+/* Destaque para células específicas */
 .dark-highlight {
-  font-weight: 500;
-  color: white;
+  font-weight: 500; /* Texto com maior peso */
+  color: white; /* Cor do texto */
 }
 
+/* Estilos para valores positivos e negativos */
 .dark-amount-negative {
-  color: #f87171;
+  color: #f87171; /* Cor para valores negativos (vermelho) */
 }
 
 .dark-amount-positive {
-  color: #4ade80;
+  color: #4ade80; /* Cor para valores positivos (verde) */
 }
 
+/* Células de ações */
 .dark-actions {
-  text-align: right;
+  text-align: right; /* Alinha à direita */
 }
 
 /* Botões de ação */
 .action-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
+  padding: 0.5rem 1rem; /* Espaçamento interno */
+  border-radius: 0.25rem; /* Bordas arredondadas */
+  font-size: 0.875rem; /* Tamanho da fonte */
   cursor: pointer;
-  margin-left: 0.5rem;
-  border: none;
-  transition: all 0.2s;
+  margin-left: 0.5rem; /* Espaço entre os botões */
+  border: none; /* Remove bordas padrão */
+  transition: all 0.2s; /* Transição suave */
 }
 
 .action-btn.edit {
-  background-color: #3b82f6;
+  background-color: #3b82f6; /* Azul */
   color: white;
 }
 
 .action-btn.delete {
-  background-color: #ef4444;
+  background-color: #ef4444; /* Vermelho */
   color: white;
 }
 
 .action-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  opacity: 0.9; /* Transparência ao passar o mouse */
+  transform: translateY(-1px); /* Elevação leve */
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
   .table-wrapper {
-    min-width: 100%;
+    overflow-x: auto; /* Permite scroll horizontal para tabelas grandes */
+    width: 100%; /* Garante que o wrapper se ajuste */
   }
-  
-  .dark-header-cell,
-  .dark-table-cell {
-    padding: 0.75rem;
-    font-size: 0.875rem;
+
+  .dark-header-cell, .dark-table-cell {
+    padding: 0.75rem; /* Reduz padding em telas menores */
+    font-size: 0.85rem; /* Texto menor para responsividade */
   }
-  
+
   .action-btn {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem; /* Ajusta tamanho do botão */
+    font-size: 0.75rem; /* Reduz tamanho da fonte */
+  }
+
+  .dark-highlight, .dark-amount-positive, .dark-amount-negative {
+    word-wrap: break-word; /* Garante quebra de linha para textos longos */
   }
 }

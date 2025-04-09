@@ -28,22 +28,17 @@ const TableRow = ({ id, index, title, type, paymentMethod, category, amount, onD
     }
     
     return (
-        <>
-        <tbody className="dark-table-body">
                 <tr className="dark-table-row" key={id}>
                     <td className="dark-table-cell">{++index}</td>
                     <td className="dark-table-cell dark-highlight">{title}</td>
                     <td className="dark-table-cell dark-highlight">{TRANSACTION_PAYMENT_METHOD_LABELS[paymentMethod]}</td>
                     <td className="dark-table-cell dark-highlight">{TRANSACTION_CATEGORIES_LABELS[category]}</td>
-                <td className={`dark-table-cell dark-amount ${type === 'debit' ? 'dark-amount-negative' : 'dark-amount-positive'}`}>
-                    {formatCurrency(amount)}</td>
+                    <td className={`dark-table-cell dark-amount ${type === 'debit' ? 'dark-amount-negative' : 'dark-amount-positive'}`}>{formatCurrency(amount)}</td>
                     <td className="dark-table-cell dark-actions">
                         <button className="action-btn edit" onClick={handleEditClick}>Editar</button>
                         <button className="action-btn delete" onClick={onDelete}>Excluir</button>
                     </td>
                 </tr>
-        </tbody>
-    </>
     );
 }
 
