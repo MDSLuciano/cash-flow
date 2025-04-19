@@ -1,0 +1,39 @@
+/* Estilo dos cards */
+.summary-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px;
+    background-color: #2d3748;
+    border: 1px solid #4a5568;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.25);
+    margin-right: 16px;
+}
+
+.summary-card-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  margin-bottom: 3rem;
+}
+
+.summary-title {
+    font-size : 1rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.summary-value {
+    font-size: 1.25rem;
+    color: #e2e8f0;
+    margin-left: 16px;
+}
+
+/* Estilos específicos para entradas e saídas */
+.income-card {
+  color: #22c55e;
+}
+
+.expense-card {
+  color: #ef4444;
+}

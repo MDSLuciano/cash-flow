@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { useTransactions } from '../../contexts/TransactionContext';
 import AddTransaction from '../AddTransaction/AddTransaction';
 import './SummaryStyle.css'
+import SummaryCard from '../SummaryCard/SummaryCard';
+import { FaWallet } from 'react-icons/fa6';
+import { TbTrendingDown, TbTrendingUp } from 'react-icons/tb';
 
 const Summary = () => {
     const { summary, refreshSummary } = useTransactions(); // Consumindo o contexto
@@ -11,20 +14,26 @@ const Summary = () => {
     }, [])
     return (
         <div className='summary-container'>
-            <div className='summary-card'>
-                <p className="summary-title">Saldo Geral:</p>
-                <p id="balance" className='summary-value'>R$ {summary.netBalance.toFixed(2)}</p>
-            </div>
+            <SummaryCard 
+                title='Saldo Geral:'
+                value={summary.netBalance}
+                className={summary.netBalance < 0 ? 'expense-card' : ''}
+                icon={<FaWallet />}
+            />
+            
+            <SummaryCard
+                title='Total Crédito:'
+                value={summary.totalCredit}
+                className='income-card'
+                icon={<TbTrendingUp />}
+            />
 
-            <div className='summary-card'>
-                <p className="summary-title">Total Crédito:</p>
-                <p id="total-income" className='summary-value'>R$ {summary.totalCredit.toFixed(2)}</p>
-            </div>
-
-            <div className='summary-card'>
-                <p className="summary-title">Total Débito:</p>
-                <p id="total-expense" className='summary-value'>R$ {summary.totalDebit.toFixed(2)}</p>
-            </div>
+            <SummaryCard
+                title='Total Débito:'
+                value={summary.totalDebit}
+                className='expense-card'
+                icon={<TbTrendingDown />}
+            />
             <AddTransaction />
         </div>
     );
