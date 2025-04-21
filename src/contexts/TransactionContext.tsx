@@ -8,6 +8,7 @@ interface Transaction {
     type: string;
     category: string;
     paymentMethod: string;
+    transactionDate: string;
 }
 
 interface SummaryData {
@@ -65,6 +66,6 @@ export const useTransactions = (): TransactionContextData => {
     if (!context) {
         throw new Error('useTransactions must be used within a TransactionProvider');
     }
-    
+
     return context
 };

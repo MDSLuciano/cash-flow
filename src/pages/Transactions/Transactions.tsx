@@ -12,6 +12,7 @@ interface Transaction {
     paymentMethod: string;
     category: string;
     amount: number;
+    transactionDate: string;
 }
 
 
@@ -68,6 +69,7 @@ const Transaction = () => {
                             <th className="dark-header-cell">Meio de Pagamento</th>
                             <th className="dark-header-cell">Categoria</th>
                             <th className="dark-header-cell">Valor</th>
+                            <th className="dark-header-cell">Data</th>
                             <th className="dark-header-cell"></th>
                         </tr>
                     </thead>
@@ -82,6 +84,7 @@ const Transaction = () => {
                                 paymentMethod={transaction.paymentMethod}
                                 category={transaction.category}
                                 amount={transaction.amount}
+                                transactionDate={transaction.transactionDate}
                                 onDelete={() => handleDelete(transaction.id)}
                                 onEdit={openModalForEdit}
                             />

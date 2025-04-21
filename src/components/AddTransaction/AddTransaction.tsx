@@ -10,6 +10,7 @@ interface TransactionData {
     type: string;
     category: string;
     paymentMethod: string;
+    transactionDate: null | string;
 }
 
 const AddTransaction = () => {
@@ -17,8 +18,9 @@ const AddTransaction = () => {
     const { refreshTransactions, refreshSummary } = useTransactions()
 
     const openModal = () => setModalOpen(true);
-    const closeModal = () => setModalOpen(false);
-    
+    const closeModal = () => {
+      setModalOpen(false)
+    };
 
     const saveTransaction = async (transactionData: TransactionData) => {
         await api.post('/', transactionData)
