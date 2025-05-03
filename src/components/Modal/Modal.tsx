@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TRANSACTION_CATEGORIES, TRANSACTION_PAYMENT_METHODS, TRANSACTION_TYPES } from '../../constant/transaction';
 import './ModalStyles.css';
-import TransactionCalendar from '../TransactionCalendar/TransactionCalendar';
+import TransactionCalendarSingleDate from '../TransactionCalendarSingleDate/TransactionCalendarSingleDate';
 
 interface ModalProps {
     isOpen: boolean;
@@ -117,7 +117,7 @@ const Modal = ({isOpen, onClose, onSaveTransaction, isEdit, initialData}:ModalPr
                     </div>
                     <div className="form-group">
                       <label htmlFor='transactionDate'>Data da Transação:</label>
-                      <TransactionCalendar
+                      <TransactionCalendarSingleDate
                         initialDate={formData.transactionDate ? new Date(formData.transactionDate): new Date()} //Passa a data inicial, se houver.
                         onDateChange={handleDateChange}
                       />

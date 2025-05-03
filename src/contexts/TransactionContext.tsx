@@ -17,11 +17,19 @@ interface SummaryData {
     totalDebit: number;
 }
 
+interface SearchTransactionParams {
+  query?: string
+  type?: string;
+  startDate?: Date | null;
+  endDate?: Date | null;
+}
+
 interface TransactionContextData {
     transactions: Transaction[];
     summary: SummaryData;
-    refreshTransactions: () => Promise<void>
-    refreshSummary: () => Promise<void>
+    refreshTransactions: () => Promise<void>;
+    refreshSummary: () => Promise<void>;
+    searchTransactions: (params : SearchTransactionParams) => Promise<void>;
 }
 
 const TransactionContext = createContext<TransactionContextData>({} as TransactionContextData);
@@ -53,10 +61,36 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
         }
     }
 
+    const searchTransactions = async({ query, type, startDate, endDate }: SearchTransactionParams) => {
+        try {
+            const params: any = {};
+
+            if (query) params.title = query;
+            if (type) params.type = type;
+
+            if (startDate && endDate) {
+                // Se houver intervalo definido, aplica os parâmetros
+                params.startDate = new Date(startDate).toISOString();
+                params.endDate = new Date(endDate).toISOString();
+            } else {
+                // Caso nenhum intervalo seja fornecido, define o ano inteiro como padrão
+                const currentYear = new Date().getFullYear();
+                params.startDate = new Date(`${currentYear}-01-01T00:00:00.000Z`).toISOString();
+                params.endDate = new Date(`${currentYear + 1}-01-01T00:00:00.000Z`).toISOString();
+            }
+
+            const response = await api.get('/transactions', { params });
+            console.log(response.data.transactions)
+            setTransactions(response.data.transactions); // Atualiza as transações filtradas
+        } catch (error){
+            console.error('Error searching for transactions.')
+        }
+    }
+
     return (
-        <TransactionContext.Provider value={{ transactions, summary, refreshTransactions, refreshSummary }}>
-            {children}
-        </TransactionContext.Provider>
+      <TransactionContext.Provider value={{ transactions, summary, refreshTransactions, refreshSummary, searchTransactions }}>
+          {children}
+      </TransactionContext.Provider>
     )
 }
 
