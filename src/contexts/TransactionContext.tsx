@@ -79,9 +79,11 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
                 params.endDate = new Date(`${currentYear + 1}-01-01T00:00:00.000Z`).toISOString();
             }
 
-            const response = await api.get('/transactions', { params });
-            console.log(response.data.transactions)
-            setTransactions(response.data.transactions); // Atualiza as transações filtradas
+            const responseTransaction = await api.get('/transactions', { params });
+            const responseSummary = await api.get('/summary', { params });
+            console.log(responseTransaction.data.transactions)
+            setSummary(responseSummary.data.summary) // Atualiza o sumario com as transações filtradas
+            setTransactions(responseTransaction.data.transactions); // Atualiza as transações filtradas
         } catch (error){
             console.error('Error searching for transactions.')
         }

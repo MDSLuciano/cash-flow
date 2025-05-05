@@ -103,16 +103,16 @@ const SearchBar = () => {
                                         Débito
                                     </button>
                                 </li>
+                                <li className="calendar-container">
+                                    <TransactionCalendarRangeDate
+                                        initialDate={getMonthRange().startDate}
+                                        initialRange={getMonthRange()}
+                                        onRangeChange={handleDateRangeChange}
+                                    />
+                                </li>
                             </ul>
                         </div>
                     )}
-                </div>
-                <div className="calendar-container">
-                    <TransactionCalendarRangeDate
-                        initialDate={getMonthRange().startDate}
-                        initialRange={getMonthRange()}
-                        onRangeChange={handleDateRangeChange}
-                    />
                 </div>
             </div>
         </div>

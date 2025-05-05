@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <h1 className='header-title'>CashFlow+</h1>
+      <img src='/cashflow1.png' alt='CashFlow+' width={600} />
       <p className='description'>Seu gerenciador de finanças pessoal.</p>
       <TransactionProvider>
         <FilterProvider >

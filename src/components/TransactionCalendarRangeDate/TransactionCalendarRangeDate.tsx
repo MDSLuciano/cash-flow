@@ -54,8 +54,8 @@ const TransactionCalendar = ({ onRangeChange}:TransactionCalendarProps) => {
     <div>
         <div>
           {/* Botão para filtrar por período e pelo dia selecionado */}
-          <button type="button" onClick={() => openCalendarModal()}>
-            Filtrar por data
+          <button type="button" onClick={() => openCalendarModal()} className="button">
+            Data
           </button>
         </div>
 
